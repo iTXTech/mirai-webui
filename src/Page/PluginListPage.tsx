@@ -3,7 +3,6 @@ import {Button, Card, CardActions, CardContent, Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {requestPluginList} from "../lib/requests";
 import {useEffect, useState} from "react";
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export interface PluginListInfo {
     package:string
     name:string
@@ -12,22 +11,24 @@ export interface PluginListInfo {
     description:string
     defaultChannel:string
 }
-export default function() {
+
+export function PluginListPage() {
     const [pluginData, setPluginData] = useState(Array<PluginListInfo>())
     useEffect(()=>{
         requestPluginList().then(res=>{
             const pluginListArray = new Array<PluginListInfo>()
-            for(let i in res.data){
-                res.data[i].package = i
-                pluginListArray.push(res.data[i])
+            //const metaData = res.data.metadata
+            const packages = res.data.packages
+            for(let i in packages){
+                packages[i].package = i
+                pluginListArray.push(packages[i])
             }
 
             setPluginData(pluginListArray.filter((value => value.package!=='metadata')))
         })
     },[])
     return <>
-        <Container sx={{ py: 8 }} maxWidth="md">
-            {/* End hero unit */}
+        <Container maxWidth="md">
             <Grid container spacing={4}>
                 {pluginData.map((plugin) => (
                     <Grid item key={plugin.package} xs={12} sm={6} md={4}>
@@ -56,3 +57,5 @@ export default function() {
         </Container>
     </>
 }
+
+export default PluginListPage

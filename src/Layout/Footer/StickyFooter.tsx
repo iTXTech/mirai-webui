@@ -8,8 +8,8 @@ function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary">
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
+            <Link color="inherit" href="https://github.com/iTXTech/mirai-webui">
+                mirai-webui
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -17,7 +17,7 @@ function Copyright() {
     );
 }
 
-export default function () {
+export function StickyFooter(){
     return <Box
         component="footer"
         sx={{
@@ -30,11 +30,10 @@ export default function () {
                     : theme.palette.grey[800],
         }}
     >
-        <Container maxWidth="sm">
-            <Typography variant="body1">
-                My sticky footer can be found here.
-            </Typography>
+        <Container maxWidth="lg">
             <Copyright />
         </Container>
     </Box>
 }
+
+export default StickyFooter

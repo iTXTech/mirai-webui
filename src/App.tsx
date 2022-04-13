@@ -5,8 +5,8 @@ import PluginListPage from "./Page/PluginListPage";
 
 function App() {
   return (
-      <Layout>
-        <PluginListPage></PluginListPage>
+      <Layout title={'Mirai Repo'}>
+        <PluginListPage/>
       </Layout>
   );
 }
