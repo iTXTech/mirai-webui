@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Layout from "./Layout/Layout";
-import PluginListPage from "./Page/PluginListPage";
+import PluginListPage from "./Page/PluginListPage/PluginListPage";
 
 function App() {
   return (

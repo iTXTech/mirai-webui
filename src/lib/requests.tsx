@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export function requestPluginList() {
-    return axios.get("https://repo.itxtech.org/packages.json")
+export function requestPluginList(api:string) {
+    return axios.get(api + "/packages.json")
 }

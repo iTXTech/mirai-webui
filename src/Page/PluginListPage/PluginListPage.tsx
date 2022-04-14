@@ -1,8 +1,9 @@
 import Container from "@mui/material/Container";
 import {Button, Card, CardActions, CardContent, Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {requestPluginList} from "../lib/requests";
+import {requestPluginList} from "../../lib/requests";
 import {useEffect, useState} from "react";
+import MetadataInfo from "./MetadataInfo";
 export interface PluginListInfo {
     package:string
     name:string
@@ -12,24 +13,33 @@ export interface PluginListInfo {
     defaultChannel:string
 }
 
+export interface RepoMetadata {
+    commit?:string
+    name?:string
+    timestamp?:number
+}
 export function PluginListPage() {
+    const [api] = useState('https://repo.itxtech.org')
     const [pluginData, setPluginData] = useState(Array<PluginListInfo>())
+    const [metadata, setMetadata] = useState({} as any)
     useEffect(()=>{
-        requestPluginList().then(res=>{
+        requestPluginList(api).then(res=>{
             const pluginListArray = new Array<PluginListInfo>()
-            //const metaData = res.data.metadata
+            setMetadata(res.data.metadata)
             const packages = res.data.packages
             for(let i in packages){
                 packages[i].package = i
                 pluginListArray.push(packages[i])
             }
-
-            setPluginData(pluginListArray.filter((value => value.package!=='metadata')))
+            setPluginData(pluginListArray.filter((value => value.name!==undefined)))
         })
-    },[])
+    },[api])
     return <>
         <Container maxWidth="md">
             <Grid container spacing={4}>
+                <Grid item sm={12}>
+                    <MetadataInfo {...metadata} api={api}></MetadataInfo>
+                </Grid>
                 {pluginData.map((plugin) => (
                     <Grid item key={plugin.package} xs={12} sm={6} md={4}>
                         <Card
