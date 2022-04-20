@@ -1,9 +1,9 @@
 import Container from "@mui/material/Container";
-import {Button, Card, CardActions, CardContent, Grid} from "@mui/material";
-import Typography from "@mui/material/Typography";
+import {Grid} from "@mui/material";
 import {requestPluginList} from "../../lib/requests";
 import {useEffect, useState} from "react";
 import MetadataInfo from "./MetadataInfo";
+import PluginList from "./PluginList";
 export interface PluginListInfo {
     package:string
     name:string
@@ -11,15 +11,11 @@ export interface PluginListInfo {
     website:string
     description:string
     defaultChannel:string
+    logo:string
 }
 
-export interface RepoMetadata {
-    commit?:string
-    name?:string
-    timestamp?:number
-}
 export function PluginListPage() {
-    const [api] = useState('https://repo.itxtech.org')
+    const [api, setApi] = useState('https://repo.itxtech.org')
     const [pluginData, setPluginData] = useState(Array<PluginListInfo>())
     const [metadata, setMetadata] = useState({} as any)
     useEffect(()=>{
@@ -35,34 +31,15 @@ export function PluginListPage() {
         })
     },[api])
     return <>
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Grid container spacing={4}>
                 <Grid item sm={12}>
-                    <MetadataInfo {...metadata} api={api}></MetadataInfo>
+                    <MetadataInfo {...metadata} api={api} setApi={setApi}></MetadataInfo>
                 </Grid>
-                {pluginData.map((plugin) => (
-                    <Grid item key={plugin.package} xs={12} sm={6} md={4}>
-                        <Card
-                            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                        >
-                            <CardContent sx={{ flexGrow: 1 }}>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    {plugin.name}
-                                </Typography>
-                                <Typography>
-                                    {plugin.package}
-                                </Typography>
-                                <Typography>
-                                    {plugin.description}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">View</Button>
-                                <Button size="small">Edit</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                ))}
+
+                <Grid item sm={12}>
+                    <PluginList list={pluginData}></PluginList>
+                </Grid>
             </Grid>
         </Container>
     </>
