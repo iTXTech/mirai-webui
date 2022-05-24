@@ -3,8 +3,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import StickyFooter from "./Footer/StickyFooter";
-import AppBar from "./MiraiWebAppBar/MiraiWebAppBar";
-import {ReactElement} from "react";
+import {MiraiWebAppBar} from "./MiraiWebAppBar/MiraiWebAppBar";
+import {ReactElement, useState} from "react";
+import MiraiWebAppDrawer from "./MiraiWebAppBar/MiraiWebAppDrawer";
 
 export interface LayoutInfo {
     title:string,
@@ -12,6 +13,7 @@ export interface LayoutInfo {
 }
 
 export default function Layout(props:LayoutInfo) {
+    const [open, setOpen] = useState(false)
     return (
         <Box
             sx={{
@@ -21,7 +23,8 @@ export default function Layout(props:LayoutInfo) {
             }}
         >
             <CssBaseline />
-            <AppBar title={props.title}/>
+            <MiraiWebAppBar title={props.title} open={open} setOpen={setOpen}></MiraiWebAppBar>
+            <MiraiWebAppDrawer open={open} setOpen={setOpen}></MiraiWebAppDrawer>
             <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="lg">
                 {props.children}
             </Container>
