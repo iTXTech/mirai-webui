@@ -1,6 +1,6 @@
 import {Divider, Drawer, List} from "@mui/material";
 import {Dispatch} from "react";
-import {mainListItems, secondaryListItems} from "./DrawerListItems";
+import {MainListItems, secondaryListItems} from "./DrawerListItems";
 
 export default function MiraiWebAppDrawer(props: {
     open: boolean,
@@ -9,7 +9,7 @@ export default function MiraiWebAppDrawer(props: {
     return <Drawer open={props.open} onClose={()=>props.setOpen(false)}>
         <Divider/>
         <List component="nav">
-            {mainListItems}
+            <MainListItems></MainListItems>
             <Divider sx={{my: 1}}/>
             {secondaryListItems}
         </List>

@@ -76,7 +76,7 @@ export function APISettingsDialog(props: {
                             value={nowAPI}
                             onChange={handleChange}
                         >
-                            {defaultAPIs.map((v)=>(<MenuItem value={v}>{v}</MenuItem>))}
+                            {defaultAPIs.map((v)=>(<MenuItem value={v} key={v}>{v}</MenuItem>))}
                         </Select>
                     :<TextField id="outlined-basic" label="API地址(https://...)" value={nowAPI} onChange={handleChange} variant="outlined" />
                     }

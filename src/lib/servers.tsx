@@ -1,9 +1,8 @@
-import {randomUUID} from "crypto";
 
 export interface SoyuzConnectionInfo {
     id:string
     name:string
-    ip:string
+    address:string
     port:string
     token:string
     addTime:Date
@@ -33,7 +32,7 @@ export function setConnectionsToLocalStorage(arr:Array<SoyuzConnectionInfo>) {
 export function addSoyuzConnection(conn:SoyuzConnectionInfo) {
     const arr = getConnectionsFromStorage()
     if(conn.id===""||!conn.id) {
-        conn.id = randomUUID()
+        conn.id = crypto.randomUUID()
     }
     arr.push(conn)
     setConnectionsToLocalStorage(arr)
@@ -41,8 +40,8 @@ export function addSoyuzConnection(conn:SoyuzConnectionInfo) {
 
 export function deleteSoyuzConnectionBy(predicate: (value: SoyuzConnectionInfo, index: number, array: SoyuzConnectionInfo[]) => unknown) {
     const arr = getConnectionsFromStorage()
-    arr.filter(predicate)
-    setConnectionsToLocalStorage(arr)
+    const res = arr.filter(predicate)
+    setConnectionsToLocalStorage(res)
 }
 
 export function deleteSoyuzConnectionByName(connName: string) {
