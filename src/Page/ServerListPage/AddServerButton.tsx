@@ -25,6 +25,10 @@ export function AddServerButton(props:{
         setOpen(!open);
     };
 
+    const handleOpen = () => {
+        if(!open) setOpen(true)
+    };
+
     const handleValueChange = (fun:Function) => {
         return (event: { target: { value: any; }; })=>{
             fun(event.target.value)
@@ -40,7 +44,7 @@ export function AddServerButton(props:{
 
 
 
-    const addServer = async () => {
+    const addServer = () => {
         let n = name
         if(n==="") n = `${address}:${port}`
         addSoyuzConnection({
@@ -55,7 +59,7 @@ export function AddServerButton(props:{
         props.onChange?.call({})
     }
 
-    return <Fab size="medium" color="secondary" aria-label="add"   onClick={handleClose}>
+    return <Fab size="medium" color="secondary" aria-label="add"   onClick={handleOpen}>
         <Add/>
 
         <Dialog open={open} onClose={handleClose}>
