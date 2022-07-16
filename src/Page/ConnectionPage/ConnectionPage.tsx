@@ -12,6 +12,8 @@ export function ConnectionInfo(info: SoyuzConnectionInfo) {
     </>
 }
 
+
+
 export function Connection(props: SoyuzConnectionInfo) {
     return  <>
         <ConnectionInfo {...props}/>
