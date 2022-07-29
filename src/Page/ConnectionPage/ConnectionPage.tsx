@@ -1,13 +1,14 @@
 import Typography from "@mui/material/Typography";
 import {SoyuzConnectionInfo} from "../../lib/servers";
 import {useLocation} from "react-router-dom";
+import {ConnectionPanel} from "./ConnectionPanel";
 export function ConnectionInfo(info: SoyuzConnectionInfo) {
     return <>
-        <Typography
-            sx={{ display: 'inline' }}
-            component="span"
-            color="text.primary">
-            {info.name} - IP:{info.address} 端口{info.port}
+        <Typography variant="h5" component="h5">
+            Soyuz连接 {" "}
+            <Typography component="span">
+                IP:{info.address} 端口{info.port}
+            </Typography>
         </Typography>
     </>
 }
@@ -17,6 +18,7 @@ export function ConnectionInfo(info: SoyuzConnectionInfo) {
 export function Connection(props: SoyuzConnectionInfo) {
     return  <>
         <ConnectionInfo {...props}/>
+        <ConnectionPanel {...props}/>
     </>
 }
 

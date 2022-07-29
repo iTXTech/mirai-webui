@@ -16,9 +16,9 @@ export function AddServerButton(props:{
     onChange?:Function
 }) {
     const [open, setOpen] = useState(false);
-    const [address, setAddress] = useState("");
+    const [address, setAddress] = useState("127.0.0.1");
     const [name, setName] = useState("");
-    const [port, setPort] = useState("");
+    const [port, setPort] = useState("9876");
     const [token, setToken] = useState("");
 
     const handleClose = () => {
@@ -36,9 +36,9 @@ export function AddServerButton(props:{
     }
 
     const handleReset = () => {
-        setAddress("")
+        setAddress("127.0.0.1")
         setName("")
-        setPort("")
+        setPort("9876")
         setToken("")
     }
 
@@ -83,6 +83,7 @@ export function AddServerButton(props:{
                     margin="dense"
                     id="ip"
                     label="IP"
+                    value={address}
                     onChange={handleValueChange(setAddress)}
                     fullWidth
                     variant="standard"
@@ -92,6 +93,7 @@ export function AddServerButton(props:{
                     margin="dense"
                     id="port"
                     label="端口"
+                    value={port}
                     onChange={handleValueChange(setPort)}
                     type="number"
                     fullWidth
@@ -102,6 +104,7 @@ export function AddServerButton(props:{
                     margin="dense"
                     id="token"
                     label="Token"
+                    value={token}
                     onChange={handleValueChange(setToken)}
                     fullWidth
                     variant="standard"
