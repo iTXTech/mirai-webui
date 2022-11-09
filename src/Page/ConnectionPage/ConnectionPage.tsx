@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import {SoyuzConnectionInfo} from "../../lib/servers";
 import {useLocation} from "react-router-dom";
-import {ConnectionPanel} from "./ConnectionPanel";
+import {ConnectionComponent} from "./ConnectionComponent";
 export function ConnectionInfo(info: SoyuzConnectionInfo) {
     return <>
         <Typography variant="h5" component="h5">
@@ -18,7 +18,7 @@ export function ConnectionInfo(info: SoyuzConnectionInfo) {
 export function Connection(props: SoyuzConnectionInfo) {
     return  <>
         <ConnectionInfo {...props}/>
-        <ConnectionPanel {...props}/>
+        <ConnectionComponent {...props}/>
     </>
 }
 
