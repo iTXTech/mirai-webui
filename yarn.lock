@@ -7287,6 +7287,11 @@ react-scripts@5.0.0:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-terminal-ui@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-terminal-ui/-/react-terminal-ui-1.0.0.tgz#0c6de4b4195c77fbe071814cc4f4a0983c5a1556"
+  integrity sha512-JVU9u3e0TjFlFyPDBC6QmI8tac9hVPGcIAG4ui3zdtTjSczi0mW4VFUVDAva4Oxg9xtz2cNZF9v49qXGGF9z9w==
+
 react-transition-group@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"

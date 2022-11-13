@@ -4,6 +4,7 @@ import useWebSocket, {ReadyState} from "react-use-websocket";
 import {MessagePanel} from "./MessagePanel/MessagePanel";
 import {Chip, FormControl, IconButton, Input, InputAdornment, Stack} from "@mui/material";
 import {ArrowRight, Refresh} from "@mui/icons-material";
+import {KEY_SOYUZ_INPUT_COMMAND} from "../../lib/messages";
 
 export enum SoyuzConnectionStatus {
     ERROR = 0, // 在Websocket组件中除了OPEN、Connecting之外的状态（Closing、Closed、Uninstantiated）
@@ -71,7 +72,7 @@ export const ConnectionComponent = (props: SoyuzConnectionInfo) => {
     const [socketUrl] = useState(`ws://` + props.address + ":" + props.port)
     const [isOpen, setIsOpen] = useState(true);
     const [shouldReconnect, setShouldReconnect] = useState(false)
-    const [messageHistory, setMessageHistory] = useState([]);
+    const [messageHistory, setMessageHistory] = useState(Array<string>());
     const [status, setStatus] = useState(SoyuzConnectionStatus.PENDING)
     const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl,{shouldReconnect: ()=>shouldReconnect}, isOpen)
 
@@ -81,7 +82,6 @@ export const ConnectionComponent = (props: SoyuzConnectionInfo) => {
         switch (status) {
             case SoyuzConnectionStatus.UNLOGON:
                 const msgObj = JSON.parse(lastMessage.data.toString())
-                console.log(msgObj)
                 if(msgObj.msg === "Session has been authorized") setStatus(SoyuzConnectionStatus.LOGON)
                 else setStatus(SoyuzConnectionStatus.AUTHORIZE_ERROR)
                 break
@@ -124,16 +124,22 @@ export const ConnectionComponent = (props: SoyuzConnectionInfo) => {
         setTimeout(()=>setIsOpen(true), 1000)
     }
 
-    const sendCommand = (cmd:string) => sendMessage(JSON.stringify({
-        key: "soyuz-run-command",
-        command: cmd
-    }))
+    const sendCommand = (cmd:string) => {
+        setMessageHistory((prev) => prev.concat(JSON.stringify({
+            "key": KEY_SOYUZ_INPUT_COMMAND,
+            "input": cmd
+        })));
+        sendMessage(JSON.stringify({
+            key: "soyuz-run-command",
+            command: cmd
+        }))
+    }
 
     return (
         <>
             <ConnectionStatusPanel status={status} onRefresh={()=>refreshConnection()}></ConnectionStatusPanel>
-            <MessagePanel messages={messageHistory}/>
-            <CommandInput onSendCommand={sendCommand}></CommandInput>
+            <MessagePanel messages={messageHistory} onCommand={sendCommand}/>
         </>
     );
+    // <CommandInput onSendCommand={sendCommand}></CommandInput>
 }
